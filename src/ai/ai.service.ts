@@ -396,7 +396,7 @@ export class AiService {
 
     const g = await this.gpt(
       '당신은 쇼핑몰 운영 보고서의 원인 분석 도우미입니다. 아래 "signals" 중에서 매출 변화의 원인 후보를 최대 3개 고르세요. ' +
-        'signals 에 없는 내용이나 숫자를 지어내지 마세요. 각 후보에는 근거가 되는 signal id 를 signalIds 로 넣고, 확정이 아닌 "후보"라는 말투로 쓰세요. ' +
+        'signals 에 없는 내용이나 숫자를 지어내지 마세요. 각 후보에는 근거가 되는 signal id 를 signalIds 로 넣고, 확정이 아닌 "후보"라는 말투로 쓰되, 모든 문장은 "~했을 수 있어요", "~후보예요"처럼 해요체로 끝내고 "~입니다"는 쓰지 마세요.' +
         '또 사용자가 고쳐 쓸 사유 메모 초안(noteDraft, 120자 이내, 해요체)도 쓰세요. ' +
         '출력 형식: {"candidates":[{"title":"짧은 제목","explanation":"한 문장 설명","signalIds":["..."]}],"noteDraft":"..."}',
       JSON.stringify({ metric: metricKey || 'sales', salesChange: `${snap.kpis.delta.sales}%`, direction: dir, signals }),
