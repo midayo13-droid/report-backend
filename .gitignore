@@ -1,0 +1,17 @@
+# 빌드 결과와 설치 폴더
+/dist
+/node_modules
+*.tsbuildinfo
+
+# 비밀 값 (DB 주소, API 키 등)은 절대 올리지 않는다
+.env
+.env.*
+!.env.example
+
+# 로그와 임시 파일
+*.log
+npm-debug.log*
+coverage
+.DS_Store
+.idea
+.vscode

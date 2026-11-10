@@ -1,0 +1,35 @@
+# Render "Blueprint" 파일이에요. Render에서 New > Blueprint 로 이 저장소를 고르면 아래 설정대로 서버가 만들어져요.
+# sync: false 인 값은 비밀 값이라 파일에 적지 않고, Render 화면에서 직접 입력해요.
+services:
+  - type: web
+    name: report-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      # --- 직접 입력해야 하는 값 (README의 설정값 표 참고) ---
+      - key: DATABASE_URL
+        sync: false
+      - key: ENCRYPTION_KEY
+        sync: false
+      - key: FRONTEND_ORIGIN
+        sync: false
+      - key: GPT_API_KEY
+        sync: false
+      # --- 자동으로 만들어지는 값 ---
+      - key: JWT_SECRET
+        generateValue: true
+      # --- 정해 둔 값 ---
+      - key: DB_SCHEMA
+        value: moa
+      - key: DEMO_MODE
+        value: "true"
+      - key: SEED_ON_START
+        value: "true"
+      - key: ENABLE_SCHEDULER
+        value: "true"
