@@ -294,6 +294,16 @@ export class AiService {
       else if (g?.action === 'unsupported') outcome = { redirect: 'unsupported', message: String(g.message ?? '그 요청은 양식 도우미로 바꿀 수 없어요.').slice(0, 200) };
       else if (g?.action === 'change' && g.config) {
         const check = validateTemplateConfig(type, g.config);
+        if (check.ok && check.config) {
+          // 새로 추가한 그래프가 재고 표·비고 뒤(맨 끝)에 붙으면, 다른 그래프 옆(재고 표 앞)으로 옮겨요.
+          const had = new Set(cur.config.sections.map((s: any) => s.key));
+          const secs = check.config.sections;
+          for (const key of secs.filter((s: any) => String(s.key).startsWith('custom:') && !had.has(s.key)).map((s: any) => s.key)) {
+            const i = secs.findIndex((s: any) => s.key === key);
+            const stockAt = secs.findIndex((s: any) => s.key === 'stock_table');
+            if (stockAt !== -1 && i > stockAt) secs.splice(stockAt, 0, secs.splice(i, 1)[0]);
+          }
+        }
         if (check.ok && check.config && describeChanges(cur.config, check.config).length) {
           outcome = { config: check.config, message: String(g.message ?? '아래 변경 내용을 확인하고, 괜찮으면 적용해 주세요.').slice(0, 200) };
           source = 'gpt';
