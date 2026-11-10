@@ -263,7 +263,7 @@ export class SeedService {
         await bulk(c, 'report_criteria', [['report_id', 'int'], ['criteria_version_id', 'int']], rc);
         const idOf = (type: ReportType, date: string) => reportIds[plan.findIndex((p) => p.type === type && p.date === date)];
 
-        // ----- 사유 메모 -----
+        // ----- 확인 메모 -----
         const notes: [string, string, string, number, string][] = [
           [addDays(g.marks.eventDays[0], 1), 'sales', '인스타 이벤트로 주문이 크게 늘었어요.', mktUser, '1'],
           [addDays(g.marks.eventDays[1], 1), 'sales', '두 번째 이벤트예요. 광고비도 같이 늘렸어요.', mktUser, '1'],
@@ -317,7 +317,7 @@ export class SeedService {
         audit.push([sysadmin, 'connection.update', 'connection', 'all', JSON.stringify({ note: '연결 키 등록' }), kst(g.start, '09:30')]);
         await bulk(c, 'audit_logs', [['actor_id', 'int'], ['action', 'text'], ['target_type', 'text'], ['target_id', 'text'], ['detail', 'jsonb'], ['created_at', 'timestamptz']], audit);
 
-        this.log.log(`보고서 ${plan.length}건, 사유 메모 ${nrows.length}건, 이력 ${audit.length}건`);
+        this.log.log(`보고서 ${plan.length}건, 확인 메모 ${nrows.length}건, 이력 ${audit.length}건`);
       });
       this.status = 'done';
       this.message = `가상 데이터를 채웠어요. (${Math.round((Date.now() - t0) / 1000)}초)`;

@@ -33,7 +33,7 @@ export const Public = () => SetMetadata('isPublic', true);
 export const Roles = (...roles: Role[]) => SetMetadata('roles', roles);
 export const CurrentUser = createParamDecorator((_d: unknown, ctx: ExecutionContext): AuthUser => ctx.switchToHttp().getRequest().user);
 
-/** 조회자를 뺀 나머지는 승인 전 보고서를 볼 수 있어요. (사용자는 사유 메모를 쓰려면 승인 전 보고서를 봐야 해요) */
+/** 조회자를 뺀 나머지는 승인 전 보고서를 볼 수 있어요. (사용자는 확인 메모를 쓰려면 승인 전 보고서를 봐야 해요) */
 export const canSeeUnpublished = (u: AuthUser) => u.role !== 'viewer';
 
 export function publicUser(u: AuthUser) {
