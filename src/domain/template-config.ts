@@ -26,7 +26,7 @@ export const SECTION_LABEL: Record<string, string> = {
   chart_ad_efficiency: '광고 효율 추이',
   chart_cancel_trend: '취소율 추이',
   stock_table: '재고 부족 상품',
-  notes: '비고',
+  notes: '확인 메모',
 };
 
 export const CHART_LABEL: Record<string, string> = {
